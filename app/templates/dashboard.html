@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | ActionMysuru</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    {% include "navbar.html" %}
+
+    <div class="form-container">
+        <h2>Welcome, <span id="name">Volunteer</span></h2>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>City:</strong> <span id="city"></span></p>
+        <p><strong>Skills:</strong> <span id="skills"></span></p>
+        <p><strong>Status:</strong> <span id="status"></span></p>
+        <p><strong>Contributor:</strong> <span id="contributor"></span></p>
+        <br>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ActionMysuru. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function loadDashboard() {
+            const token = localStorage.getItem('token');
+            if (!token) { window.location.href = '/login'; return; }
+            const res = await fetch('/volunteer/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) { window.location.href = '/login'; return; }
+            const data = await res.json();
+            document.getElementById('name').innerText = data.full_name;
+            document.getElementById('email').innerText = data.email;
+            document.getElementById('city').innerText = data.city;
+            document.getElementById('skills').innerText = data.skills || 'N/A';
+            document.getElementById('status').innerText = data.is_approved ? '✅ Approved' : '⏳ Pending Approval';
+            document.getElementById('contributor').innerText = data.wants_to_contribute ? '✅ Yes' : 'No';
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+        }
+
+        loadDashboard();
+    </script>
+</body>
+</html>

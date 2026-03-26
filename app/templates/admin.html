@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | ActionMysuru</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .admin-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 30px 20px 0;
+        }
+        .tab-btn {
+            padding: 10px 25px;
+            border: 2px solid #1a5276;
+            background: white;
+            color: #1a5276;
+            border-radius: 25px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: #1a5276;
+            color: white;
+        }
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        th {
+            background-color: #1a5276;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover { background-color: #eaf4fb; }
+        .approve-btn {
+            background-color: #1a5276;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .revoke-btn {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 6px;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 6px;
+        }
+        .admin-login {
+            max-width: 400px;
+            margin: 80px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .admin-login h2 { color: #1a5276; margin-bottom: 20px; }
+        .admin-login input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .admin-login button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a5276;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #error-msg { color: red; margin-bottom: 10px; }
+    </style>
+</head>
+<body class="bg-palace">
+    {% include "navbar.html" %}
+
+    <!-- Admin Login -->
+    <div class="admin-login" id="login-section">
+        <h2>Admin Login</h2>
+        <p id="error-msg"></p>
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <button onclick="adminLogin()">Login</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard-section" style="display:none;">
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showTab('all')">All Volunteers</button>
+            <button class="tab-btn" onclick="showTab('contributors')">Contributors</button>
+        </div>
+
+        <!-- All Volunteers Tab -->
+        <div id="tab-all">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Skills</th>
+                        <th>Contributor</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="volunteer-table"></tbody>
+            </table>
+        </div>
+
+        <!-- Contributors Tab -->
+        <div id="tab-contributors" style="display:none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Skills</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="contributors-table"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ActionMysuru. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function adminLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const res = await fetch('/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                localStorage.setItem('admin_token', data.access_token);
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                loadVolunteers();
+            } else {
+                document.getElementById('error-msg').innerText = data.detail;
+            }
+        }
+
+        async function loadVolunteers() {
+            const token = localStorage.getItem('admin_token');
+            const res = await fetch('/admin/volunteers', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const volunteers = await res.json();
+            const tbody = document.getElementById('volunteer-table');
+            tbody.innerHTML = '';
+            volunteers.forEach(v => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${v.full_name}</td>
+                        <td>${v.email}</td>
+                        <td>${v.city}</td>
+                        <td>${v.skills || 'N/A'}</td>
+                        <td>${v.wants_to_contribute ? '✅ Yes' : 'No'}</td>
+                        <td>${v.is_approved ? '✅ Approved' : '⏳ Pending'}</td>
+                        <td>
+                            ${!v.is_approved
+                                ? `<button class="approve-btn" onclick="approve(${v.id})">Approve</button>`
+                                : `<button class="revoke-btn" onclick="revoke(${v.id})">Revoke</button>`}
+                            <button class="delete-btn" onclick="deleteVolunteer(${v.id})">Delete</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function loadContributors() {
+            const token = localStorage.getItem('admin_token');
+            const res = await fetch('/admin/contributors', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const contributors = await res.json();
+            const tbody = document.getElementById('contributors-table');
+            tbody.innerHTML = '';
+            if (contributors.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888;">No contributors yet.</td></tr>';
+                return;
+            }
+            contributors.forEach(v => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${v.full_name}</td>
+                        <td>${v.email}</td>
+                        <td>${v.city}</td>
+                        <td>${v.skills || 'N/A'}</td>
+                        <td>${v.is_approved ? '✅ Approved' : '⏳ Pending'}</td>
+                    </tr>`;
+            });
+        }
+
+        function showTab(tab) {
+            document.getElementById('tab-all').style.display = tab === 'all' ? 'block' : 'none';
+            document.getElementById('tab-contributors').style.display = tab === 'contributors' ? 'block' : 'none';
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', (tab === 'all' && i === 0) || (tab === 'contributors' && i === 1));
+            });
+            if (tab === 'contributors') loadContributors();
+        }
+
+        async function approve(id) {
+            const token = localStorage.getItem('admin_token');
+            await fetch('/admin/volunteers/' + id + '/approve', {
+                method: 'PATCH',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            loadVolunteers();
+        }
+
+        async function revoke(id) {
+            if (!confirm('Revoke this volunteer?')) return;
+            const token = localStorage.getItem('admin_token');
+            await fetch('/admin/volunteers/' + id + '/revoke', {
+                method: 'PATCH',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            loadVolunteers();
+        }
+
+        async function deleteVolunteer(id) {
+            if (!confirm('Permanently delete this volunteer?')) return;
+            const token = localStorage.getItem('admin_token');
+            await fetch('/admin/volunteers/' + id, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            loadVolunteers();
+        }
+
+        window.onload = () => {
+            const token = localStorage.getItem('admin_token');
+            if (token) {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                loadVolunteers();
+            }
+        };
+    </script>
+</body>
+</html>

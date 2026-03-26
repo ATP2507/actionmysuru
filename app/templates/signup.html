@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Us | ActionMysuru</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-palace">
+    {% include "navbar.html" %}
+
+    <div class="form-container">
+        <h2>Join ActionMysuru</h2>
+        <div id="message" class="message"></div>
+        <input type="text" id="full_name" placeholder="Full Name" />
+        <input type="email" id="email" placeholder="Email Address" />
+        <input type="text" id="phone" placeholder="Phone Number" />
+        <input type="text" id="city" placeholder="City" />
+        <textarea id="skills" placeholder="Your skills or areas of interest (optional)" rows="3"></textarea>
+        <input type="password" id="password" placeholder="Password" />
+        <label class="checkbox-label">
+            <input type="checkbox" id="wants_to_contribute" />
+            I would like to contribute to ActionMysuru
+        </label>
+        <button onclick="signup()">Join Us</button>
+        <p>Already a member? <a href="/login">Login here</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ActionMysuru. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function signup() {
+            const data = {
+                full_name: document.getElementById('full_name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                city: document.getElementById('city').value,
+                skills: document.getElementById('skills').value,
+                password: document.getElementById('password').value,
+                wants_to_contribute: document.getElementById('wants_to_contribute').checked
+            };
+            const res = await fetch('/volunteer/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            const msg = document.getElementById('message');
+            msg.style.display = 'block';
+            if (res.ok) {
+                msg.className = 'message success';
+                msg.innerText = result.message;
+            } else {
+                msg.className = 'message error';
+                msg.innerText = result.detail;
+            }
+        }
+    </script>
+</body>
+</html>

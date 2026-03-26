@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | ActionMysuru</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-palace">
+    {% include "navbar.html" %}
+
+    <div class="form-container">
+        <h2>Volunteer Login</h2>
+        <div id="message" class="message"></div>
+        <input type="email" id="email" placeholder="Email Address" />
+        <input type="password" id="password" placeholder="Password" />
+        <button onclick="login()">Login</button>
+        <p>New here? <a href="/signup">Join ActionMysuru</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ActionMysuru. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function login() {
+            const data = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+            const res = await fetch('/volunteer/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            const msg = document.getElementById('message');
+            msg.style.display = 'block';
+            if (res.ok) {
+                localStorage.setItem('token', result.access_token);
+                msg.className = 'message success';
+                msg.innerText = 'Welcome back! Redirecting...';
+                setTimeout(() => window.location.href = '/dashboard', 1500);
+            } else {
+                msg.className = 'message error';
+                msg.innerText = result.detail;
+            }
+        }
+    </script>
+</body>
+</html>
