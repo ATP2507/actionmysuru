@@ -4,56 +4,478 @@
     <meta charset="UTF-8">
     <title>Join Us | ActionMysuru</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .signup-wrapper {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .partner-banner {
+            background: rgba(255,255,255,0.95);
+            border-radius: 14px;
+            padding: 35px 40px;
+            margin-bottom: 30px;
+            border-top: 5px solid #F7941D;
+            box-shadow: 0 4px 16px rgba(27,47,110,0.1);
+            text-align: center;
+        }
+
+        .partner-banner h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .partner-banner p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .contact-pills {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-pill {
+            background: #1B2F6E;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .contact-pill:hover {
+            background: #3AAA35;
+        }
+
+        .form-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(27,47,110,0.15);
+            border-top: 5px solid #3AAA35;
+        }
+
+        .form-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .form-divider {
+            width: 60px;
+            height: 4px;
+            background: #F7941D;
+            margin: 8px auto 25px;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1B2F6E;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.2s;
+            background: #fafafa;
+            color: #333;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #3AAA35;
+            outline: none;
+            background: white;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .contribute-section {
+            background: linear-gradient(135deg, #eaf7ea, #fff8ee);
+            border: 2px solid #3AAA35;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .contribute-section h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .contribute-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .contribute-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #1B2F6E;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .contribute-option span {
+            font-size: 15px;
+            color: #333;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #1B2F6E;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #3AAA35;
+            transform: translateY(-2px);
+        }
+
+        .msg-box {
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            display: none;
+        }
+
+        .msg-box.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .msg-box.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 <body class="bg-palace">
     {% include "navbar.html" %}
 
-    <div class="form-container">
-        <h2>Join ActionMysuru</h2>
-        <div id="message" class="message"></div>
-        <input type="text" id="full_name" placeholder="Full Name" />
-        <input type="email" id="email" placeholder="Email Address" />
-        <input type="text" id="phone" placeholder="Phone Number" />
-        <input type="text" id="city" placeholder="City" />
-        <textarea id="skills" placeholder="Your skills or areas of interest (optional)" rows="3"></textarea>
-        <input type="password" id="password" placeholder="Password" />
-        <label class="checkbox-label">
-            <input type="checkbox" id="wants_to_contribute" />
-            I would like to contribute to ActionMysuru
-        </label>
-        <button onclick="signup()">Join Us</button>
-        <p>Already a member? <a href="/login">Login here</a></p>
+    <div class="hero">
+        <h1>Join ActionMysuru</h1>
+        <p>Be the change Mysuru deserves — as a volunteer, partner, or supporter</p>
+    </div>
+
+    <div class="signup-wrapper">
+
+        <!-- Partner With Us Banner -->
+        <div class="partner-banner">
+            <h2>🏢 Partner With Us</h2>
+            <p>Is your business ready to make a visible difference in Mysuru? Reach out to us directly to discuss partnership opportunities.</p>
+            <div class="contact-pills">
+                <a href="mailto:actionmysuru@gmail.com" class="contact-pill">📧 actionmysuru@gmail.com</a>
+                <a href="tel:+919606975125" class="contact-pill">📞 +91 96069 75125</a>
+            </div>
+        </div>
+
+        <!-- Volunteer Form -->
+        <div class="form-card">
+            <h2>Volunteer With Us</h2>
+            <div class="form-divider"></div>
+            <div id="msg" class="msg-box"></div>
+
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="full_name" placeholder="Enter your full name" />
+            </div>
+
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="email" placeholder="yourname@email.com" />
+            </div>
+
+            <div class="form-group">
+                <label>WhatsApp Number *</label>
+                <div style="display:flex; gap:10px;">
+                    <select id="country_code" style="width:160px; flex-shrink:0; padding:12px 10px; border:2px solid #e0e0e0; border-radius:8px; font-size:14px; background:#fafafa; color:#333; font-family:'Open Sans',sans-serif;">
+                        <option value="+91">🇮🇳 +91 India</option>
+                        <option value="+1">🇺🇸 +1 USA</option>
+                        <option value="+44">🇬🇧 +44 UK</option>
+                        <option value="+971">🇦🇪 +971 UAE</option>
+                        <option value="+65">🇸🇬 +65 Singapore</option>
+                        <option value="+61">🇦🇺 +61 Australia</option>
+                        <option value="+49">🇩🇪 +49 Germany</option>
+                        <option value="+33">🇫🇷 +33 France</option>
+                        <option value="+81">🇯🇵 +81 Japan</option>
+                        <option value="+86">🇨🇳 +86 China</option>
+                    </select>
+                    <input type="tel" id="phone" placeholder="XXXXX XXXXX" style="flex:1;" />
+                </div>
+                <small style="color:#888; font-size:12px; margin-top:4px; display:block;">Enter number without country code</small>
+            </div>
+
+            <div class="form-group">
+                <label>Country *</label>
+                <select id="country">
+                    <option value="">-- Select your country --</option>
+                    <option value="India" selected>India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="UAE">UAE</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="Japan">Japan</option>
+                    <option value="China">China</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Age *</label>
+                    <input type="number" id="age" placeholder="Your age" min="15" max="80" />
+                </div>
+                <div class="form-group">
+                    <label>Pincode *</label>
+                    <input type="text" id="pincode" placeholder="570001" maxlength="6" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>State *</label>
+                    <input type="text" id="state" placeholder="Karnataka" />
+                </div>
+                <div class="form-group">
+                    <label>City / Locality *</label>
+                    <input type="text" id="city" placeholder="Mysuru" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Occupation *</label>
+                <select id="occupation" onchange="updateOrgLabel()">
+                    <option value="">-- Select your occupation --</option>
+                    <option value="Student">Student</option>
+                    <option value="Self Employed">Self Employed</option>
+                    <option value="Working Professional">Working Professional</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="org-group">
+                <label id="org-label">Organisation Name</label>
+                <input type="text" id="organisation" placeholder="Enter name or NA" />
+            </div>
+
+            <div class="form-group">
+                <label>Why do you want to join ActionMysuru? *</label>
+                <textarea id="why_join" rows="4" placeholder="Tell us what motivates you to be part of this movement..."></textarea>
+            </div>
+
+            <div class="contribute-section">
+                <h4>How would you like to contribute? *</h4>
+                <label class="contribute-option">
+                    <input type="checkbox" value="On Ground Volunteering" />
+                    <span>🌿 On Ground Volunteering</span>
+                </label>
+                <label class="contribute-option">
+                    <input type="checkbox" value="Social Media / Awareness" />
+                    <span>📱 Social Media / Awareness</span>
+                </label>
+                <label class="contribute-option">
+                    <input type="checkbox" value="Event Organisation and Coordination" />
+                    <span>🎯 Event Organisation and Coordination</span>
+                </label>
+            </div>
+
+            <button class="submit-btn" onclick="submitForm()">Join the Movement 🌿</button>
+        </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 ActionMysuru. All rights reserved.</p>
+        {% include "footer.html" %}
     </footer>
 
     <script>
-        async function signup() {
-            const data = {
-                full_name: document.getElementById('full_name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                city: document.getElementById('city').value,
-                skills: document.getElementById('skills').value,
-                password: document.getElementById('password').value,
-                wants_to_contribute: document.getElementById('wants_to_contribute').checked
-            };
-            const res = await fetch('/volunteer/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            const result = await res.json();
-            const msg = document.getElementById('message');
-            msg.style.display = 'block';
-            if (res.ok) {
-                msg.className = 'message success';
-                msg.innerText = result.message;
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycbxo5wQKXYOPS9nv1M1eb5CXcgs9-o1v04lysGSLs4_uf5qDeblFNlFNcGH4ZsI3q_aa3A/exec";
+        const SECRET_KEY = "actionmysuru2026";
+
+        function updateOrgLabel() {
+            const occupation = document.getElementById('occupation').value;
+            const label = document.getElementById('org-label');
+            const input = document.getElementById('organisation');
+            if (occupation === 'Student') {
+                label.innerText = 'College / School Name *';
+                input.placeholder = 'Enter your institution name';
+            } else if (occupation === 'Working Professional') {
+                label.innerText = 'Company Name *';
+                input.placeholder = 'Enter your company name';
+            } else if (occupation === 'Self Employed') {
+                label.innerText = 'Business Name *';
+                input.placeholder = 'Enter your business name';
             } else {
-                msg.className = 'message error';
-                msg.innerText = result.detail;
+                label.innerText = 'Organisation Name';
+                input.placeholder = 'Enter name or NA';
+            }
+        }
+
+        function validatePhone(phone) {
+            const cleaned = phone.replace(/\s/g, '');
+            return /^\+91[6-9]\d{9}$/.test(cleaned);
+        }
+
+        function validatePincode(pincode) {
+            return /^\d{6}$/.test(pincode);
+        }
+
+        async function submitForm() {
+            const msg = document.getElementById('msg');
+            msg.style.display = 'none';
+            msg.className = 'msg-box';
+
+            const full_name = document.getElementById('full_name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const country_code = document.getElementById('country_code').value;
+            const phone_number = document.getElementById('phone').value.trim();
+            const phone = country_code + phone_number;
+            const country = document.getElementById('country').value;
+            const age = document.getElementById('age').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const pincode = document.getElementById('pincode').value.trim();
+            const occupation = document.getElementById('occupation').value;
+            const organisation = document.getElementById('organisation').value.trim();
+            const why_join = document.getElementById('why_join').value.trim();
+            const checkboxes = document.querySelectorAll('.contribute-option input[type="checkbox"]:checked');
+            const contribute = Array.from(checkboxes).map(cb => cb.value);
+
+            if (!full_name || !email || !phone_number || !age || !country || !state || !city || !pincode || !occupation || !why_join) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Please fill in all required fields.';
+                msg.style.display = 'block';
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Please enter a valid email address.';
+                msg.style.display = 'block';
+                return;
+            }
+
+            if (!/^\d{7,12}$/.test(phone_number)) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Please enter a valid phone number without country code.';
+                msg.style.display = 'block';
+                return;
+            }
+
+            if (!validatePincode(pincode)) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Please enter a valid 6-digit pincode.';
+                msg.style.display = 'block';
+                return;
+            }
+
+            if (parseInt(age) < 15 || parseInt(age) > 80) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Age must be between 15 and 80.';
+                msg.style.display = 'block';
+                return;
+            }
+
+            if (contribute.length === 0) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Please select at least one way to contribute.';
+                msg.style.display = 'block';
+                return;
+            }
+
+            const data = {
+                full_name, email, phone, country, age, state, city,
+                pincode, occupation,
+                organisation: organisation || 'NA',
+                why_join, contribute,
+                secret: SECRET_KEY
+            };
+
+            try {
+                const btn = document.querySelector('.submit-btn');
+                btn.innerText = 'Submitting...';
+                btn.disabled = true;
+
+                await fetch(SHEET_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                msg.className = 'msg-box success';
+                msg.innerText = 'Thank you for joining ActionMysuru! We will be in touch soon. 🌿';
+                msg.style.display = 'block';
+                btn.innerText = 'Join the Movement 🌿';
+                btn.disabled = false;
+
+            } catch (err) {
+                msg.className = 'msg-box error';
+                msg.innerText = 'Something went wrong. Please try again or contact us directly.';
+                msg.style.display = 'block';
             }
         }
     </script>

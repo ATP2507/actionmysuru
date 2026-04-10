@@ -4,6 +4,101 @@
     <meta charset="UTF-8">
     <title>Contact | ActionMysuru</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .contact-wrapper {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 0 20px 60px;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(27,47,110,0.15);
+            border-top: 5px solid #F7941D;
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .contact-divider {
+            width: 60px;
+            height: 4px;
+            background: #F7941D;
+            margin: 8px auto 35px;
+            border-radius: 2px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: #f5f8ff;
+            border-radius: 12px;
+            padding: 18px 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1B2F6E;
+            text-align: left;
+        }
+
+        .contact-item-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-item-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .contact-item-value {
+            font-size: 16px;
+            color: #1B2F6E;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-item-value:hover {
+            color: #3AAA35;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            margin-top: 25px;
+            background: #1B2F6E;
+            color: white;
+            padding: 13px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .contact-btn:hover {
+            background: #3AAA35;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body class="bg-betta">
     {% include "navbar.html" %}
@@ -13,25 +108,41 @@
         <p>We'd love to hear from you — whether you want to volunteer, partner, or just say hello</p>
     </div>
 
-    <div class="contact-box">
-        <h2>Get in Touch</h2>
-        <div class="contact-item">
-            <span>📧 Email:</span><br>
-             <a href="mailto:actionmysuru@gmail.com">actionmysuru@gmail.com</a>
-        <div class="contact-item">
-            <span>📞 Phone:</span><br>
-            +91 96069 75125
+    <div class="contact-wrapper">
+        <div class="contact-card">
+            <h2>Get In Touch</h2>
+            <div class="contact-divider"></div>
+
+            <div class="contact-item">
+                <div class="contact-item-icon">📧</div>
+                <div class="contact-item-text">
+                    <span class="contact-item-label">Email</span>
+                    <a href="mailto:actionmysuru@gmail.com" class="contact-item-value">actionmysuru@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-item-icon">📞</div>
+                <div class="contact-item-text">
+                    <span class="contact-item-label">Phone / WhatsApp</span>
+                    <a href="tel:+919606975125" class="contact-item-value">+91 96069 75125</a>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-item-icon">📍</div>
+                <div class="contact-item-text">
+                    <span class="contact-item-label">Location</span>
+                    <span class="contact-item-value">Mysuru, Karnataka, India</span>
+                </div>
+            </div>
+
+            <a href="/signup" class="contact-btn">Join the Movement 🌿</a>
         </div>
-        <div class="contact-item">
-            <span>📍 Location:</span><br>
-            Mysuru, Karnataka, India
-        </div>
-        <br>
-        <a href="/signup" class="btn">Join the Movement</a>
     </div>
 
     <footer>
-        <p>&copy; 2026 ActionMysuru. All rights reserved. | Mysuru is ours. Let us keep it clean.</p>
+        {% include "footer.html" %}
     </footer>
 </body>
 </html>

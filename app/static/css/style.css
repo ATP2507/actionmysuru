@@ -592,3 +592,13 @@ footer a {
     margin: 10px auto 25px;
     border-radius: 2px;
 }
+/* Footer fix */
+footer {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    footer .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

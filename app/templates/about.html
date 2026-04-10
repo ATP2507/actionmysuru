@@ -4,24 +4,333 @@
     <meta charset="UTF-8">
     <title>About | ActionMysuru</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .about-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .about-block {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 20px rgba(27,47,110,0.12);
+        }
+
+        .about-block h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .about-divider {
+            width: 60px;
+            height: 4px;
+            background: #F7941D;
+            margin: 8px auto 30px;
+            border-radius: 2px;
+        }
+
+        .scroll-boxes {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #F7941D #f0f0f0;
+            cursor: grab;
+        }
+
+        .scroll-boxes:active {
+            cursor: grabbing;
+        }
+
+        .scroll-boxes::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .scroll-boxes::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .scroll-boxes::-webkit-scrollbar-thumb {
+            background: #F7941D;
+            border-radius: 10px;
+        }
+
+        .scroll-box {
+            min-width: 300px;
+            max-width: 300px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(27,47,110,0.08);
+            border-top: 4px solid #3AAA35;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            transition: transform 0.2s;
+        }
+
+        .scroll-box:hover {
+            transform: translateY(-4px);
+        }
+
+        .scroll-box.orange {
+            border-top: 4px solid #F7941D;
+        }
+
+        .scroll-box.navy {
+            border-top: 4px solid #1B2F6E;
+        }
+
+        .scroll-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .scroll-box p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .team-avatars {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e8f4ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 2px solid #3AAA35;
+        }
+
+        .blog-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .blog-item:last-child {
+            border-bottom: none;
+        }
+
+        .blog-item h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .blog-item p {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .blog-tag {
+            display: inline-block;
+            background: #eaf7ea;
+            color: #3AAA35;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .scroll-hint {
+            text-align: right;
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+    </style>
 </head>
-<body class = "bg-palace">
+<body class="bg-palace">
     {% include "navbar.html" %}
 
     <div class="hero">
         <h1>About ActionMysuru</h1>
-        <p>We are a citizen-led movement committed to making Mysuru the cleanest city in India.</p>
+        <p>A citizen-led movement committed to making Mysuru the cleanest city in India</p>
     </div>
 
-    <div class="section">
-        <h2>Our Programmes</h2>
-        <p>ActionMysuru operates through five focused programmes, each targeting a key area of civic cleanliness. Click on any programme to learn more.</p>
-    </div>
+    <div class="about-wrapper">
 
-    
+        <!-- Meet the Team -->
+        <div class="about-block">
+            <h2>Meet the Team</h2>
+            <div class="about-divider"></div>
+            <p class="scroll-hint">← Scroll to explore →</p>
+            <div class="scroll-boxes" id="team-scroll">
+                <div class="scroll-box">
+                    <h3>👤 Our Leaders</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="team-avatars">
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                    </div>
+                </div>
+                <div class="scroll-box">
+                    <h3>🤝 Core Volunteers</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="team-avatars">
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                    </div>
+                </div>
+                <div class="scroll-box">
+                    <h3>🏢 Sub-Committee Heads</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="team-avatars">
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                    </div>
+                </div>
+                <div class="scroll-box">
+                    <h3>🎯 Advisory Board</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="team-avatars">
+                        <div class="avatar">👤</div>
+                        <div class="avatar">👤</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How Did We Start -->
+        <div class="about-block">
+            <h2>How Did We Start</h2>
+            <div class="about-divider"></div>
+            <p class="scroll-hint">← Scroll to explore →</p>
+            <div class="scroll-boxes" id="start-scroll">
+                <div class="scroll-box orange">
+                    <h3>🌱 The Beginning</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="scroll-box orange">
+                    <h3>🔥 The Spark</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="scroll-box orange">
+                    <h3>🚀 Growing Movement</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="scroll-box orange">
+                    <h3>🏙️ Mysuru Today</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blogs -->
+        <div class="about-block">
+            <h2>Blogs</h2>
+            <div class="about-divider"></div>
+            <p class="scroll-hint">← Scroll to explore →</p>
+            <div class="scroll-boxes" id="blog-scroll">
+                <div class="scroll-box navy">
+                    <span class="blog-tag">Cleanliness</span>
+                    <div class="blog-item">
+                        <h4>How One Street Changed Everything</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div class="blog-item">
+                        <h4>Citizens Who Made a Difference</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="scroll-box navy">
+                    <span class="blog-tag">Volunteering</span>
+                    <div class="blog-item">
+                        <h4>My First Day as a Volunteer</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div class="blog-item">
+                        <h4>Why I Keep Coming Back</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="scroll-box navy">
+                    <span class="blog-tag">Community</span>
+                    <div class="blog-item">
+                        <h4>The Power of Namma Mysuru</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div class="blog-item">
+                        <h4>Building a Cleaner Tomorrow</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+                <div class="scroll-box navy">
+                    <span class="blog-tag">Impact</span>
+                    <div class="blog-item">
+                        <h4>100 Days of ActionMysuru</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div class="blog-item">
+                        <h4>Measuring Our Impact</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <footer>
-        <p>&copy; 2026 ActionMysuru. All rights reserved. | Mysuru is ours. Let us keep it clean.</p>
+        {% include "footer.html" %}
     </footer>
+
+    <script>
+        // Drag to scroll
+        document.querySelectorAll('.scroll-boxes').forEach(el => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            el.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - el.offsetLeft;
+                scrollLeft = el.scrollLeft;
+            });
+
+            el.addEventListener('mouseleave', () => { isDown = false; });
+            el.addEventListener('mouseup', () => { isDown = false; });
+            el.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - el.offsetLeft;
+                const walk = (x - startX) * 2;
+                el.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
 </body>
 </html>

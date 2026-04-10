@@ -1,18 +1,11 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.database import engine
-from app import models
-from app.routes import router
-
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
-
-app.include_router(router)
 
 @app.get("/")
 def home(request: Request):
@@ -53,15 +46,3 @@ def contact(request: Request):
 @app.get("/signup")
 def signup(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
-
-@app.get("/login")
-def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
-
-@app.get("/dashboard")
-def dashboard(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
-
-@app.get("/admin")
-def admin(request: Request):
-    return templates.TemplateResponse("admin.html", {"request": request})

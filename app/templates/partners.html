@@ -4,30 +4,213 @@
     <meta charset="UTF-8">
     <title>Partners | ActionMysuru</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .partners-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .partners-block {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(27,47,110,0.12);
+        }
+
+        .partners-block h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .partners-divider {
+            width: 60px;
+            height: 4px;
+            background: #F7941D;
+            margin: 8px auto 30px;
+            border-radius: 2px;
+        }
+
+        .partner-enquiry {
+            text-align: center;
+        }
+
+        .partner-enquiry p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-pills {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-pill {
+            background: #1B2F6E;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .contact-pill:hover {
+            background: #3AAA35;
+        }
+
+        .empty-partners {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .programme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .programme-card {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px 25px;
+            border-top: 4px solid #3AAA35;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .programme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(27,47,110,0.12);
+        }
+
+        .programme-card.orange {
+            border-top: 4px solid #F7941D;
+        }
+
+        .programme-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1B2F6E;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .programme-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .learn-more {
+            display: inline-block;
+            background: #1B2F6E;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background 0.2s;
+            align-self: flex-start;
+        }
+
+        .learn-more:hover {
+            background: #3AAA35;
+        }
+    </style>
 </head>
 <body class="bg-palace">
     {% include "navbar.html" %}
 
     <div class="hero">
-        <h1>Our Partners</h1>
-        <p>Businesses and organisations standing with ActionMysuru to keep Mysuru clean</p>
+        <h1>Our Programmes & Partners</h1>
+        <p>Discover how ActionMysuru is transforming Mysuru — and how you can be part of it</p>
     </div>
 
-    <div class="partners-grid">
-        <div class="empty-state">
-            <p>🤝 No partners listed yet.</p>
-            <p style="font-size:15px; margin-top:10px;">Be the first business to partner with ActionMysuru!</p>
-            <br>
-            <div style="background:white; border-radius:12px; padding:30px 40px; box-shadow:0 4px 12px rgba(0,0,0,0.1); display:inline-block; margin-top:10px;">
-                <p style="font-size:17px; font-weight:bold; color:#1a5276; margin-bottom:15px;">Partnership Enquiries</p>
-                <p style="font-size:16px; margin-bottom:10px;">📧 <a href="mailto:partners@actionmysuru.org">partners@actionmysuru.org</a></p>
-                <p style="font-size:16px;">📞 +91 98001 00000</p>
+    <div class="partners-wrapper">
+
+        <!-- Partner With Us -->
+        <div class="partners-block">
+            <h2>🤝 Partner With Us</h2>
+            <div class="partners-divider"></div>
+            <div class="partner-enquiry">
+                <p>Is your business or organisation ready to make a visible difference in Mysuru? Join ActionMysuru as a partner and take ownership of a cleaner, prouder city.</p>
+                <div class="contact-pills">
+                    <a href="mailto:actionmysuru@gmail.com" class="contact-pill">📧 actionmysuru@gmail.com</a>
+                    <a href="tel:+919606975125" class="contact-pill">📞 +91 96069 75125</a>
+                </div>
             </div>
         </div>
+
+        <!-- Current Partners -->
+        <div class="partners-block">
+            <h2>Current Partners</h2>
+            <div class="partners-divider"></div>
+            <div class="empty-partners">
+                <p>🤝 No partners listed yet.</p>
+                <p style="font-size:14px; margin-top:8px;">Be the first organisation to partner with ActionMysuru!</p>
+            </div>
+        </div>
+
+        <!-- Our Programmes -->
+        <div class="partners-block">
+            <h2>Our Programmes</h2>
+            <div class="partners-divider"></div>
+            <div class="programme-grid">
+                <div class="programme-card">
+                    <h3>🏛️ Tourism Pilot Project</h3>
+                    <p>Maintaining Mysuru's iconic tourist destinations to a world-class standard.</p>
+                    <a href="/programmes/tourism" class="learn-more">Learn More →</a>
+                </div>
+                <div class="programme-card orange">
+                    <h3>🏢 Corporate Road Adoption</h3>
+                    <p>Corporates adopt roads and public spaces around their premises.</p>
+                    <a href="/programmes/corporate" class="learn-more">Learn More →</a>
+                </div>
+                <div class="programme-card">
+                    <h3>🌳 Park Adoption</h3>
+                    <p>Individuals and corporates adopt Mysuru's parks for upkeep and beautification.</p>
+                    <a href="/programmes/parks" class="learn-more">Learn More →</a>
+                </div>
+                <div class="programme-card orange">
+                    <h3>🏫 School Adoption</h3>
+                    <p>Schools adopt streets around campuses, teaching civic responsibility.</p>
+                    <a href="/programmes/schools" class="learn-more">Learn More →</a>
+                </div>
+                <div class="programme-card">
+                    <h3>📢 Awareness Programme</h3>
+                    <p>Outreach campaigns inspiring cleanliness across educational institutions.</p>
+                    <a href="/programmes/awareness" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
-        <p>&copy; 2026 ActionMysuru. All rights reserved. | Mysuru is ours. Let us keep it clean.</p>
+        {% include "footer.html" %}
     </footer>
 </body>
 </html>
